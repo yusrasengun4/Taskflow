@@ -1,0 +1,20 @@
+[
+    {
+        "assignment_id": 1,
+        "task_id": 1,
+        "emp_id": 1,
+        "assigned_date": "2024-01-02"
+    },
+    {
+        "assignment_id": 2,
+        "task_id": 1,
+        "emp_id": 2,
+        "assigned_date": "2024-01-02"
+    },
+    {
+        "assignment_id": 3,
+        "task_id": 2,
+        "emp_id": 1,
+        "assigned_date": "2026-11-07"
+    }
+]

@@ -118,7 +118,7 @@ router.put('/:id', (req, res) => {
             return res.status(400).json({ success: false, message: 'Invalid task_status' });
         }
 
-        // Sadece izin verilen alanlar güncellenir (task_id değiştirilemez)
+        // Sadece izin verilen alanlar güncellenir 
         const izinliAlanlar = ['task_name', 'task_description', 'task_priority',
                                'task_start_date', 'task_end_date', 'task_status'];
         izinliAlanlar.forEach(alan => {

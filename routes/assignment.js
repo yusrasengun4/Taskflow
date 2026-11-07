@@ -40,7 +40,7 @@ router.get('/', (req, res) => {
 
 // POST /assignment - Göreve bir veya birden fazla çalışan ata
 
-router.post('/', taskValidation, (req, res) => {
+router.post('/',  (req, res) => {
     try {
         const { task_id, emp_ids } = req.body;
 
@@ -59,7 +59,7 @@ router.post('/', taskValidation, (req, res) => {
         const calisanlar = oku(calisanDosyasi);
         const empIds = emp_ids.map(Number);
 
-        // Önce hepsini doğrula, hiçbiri geçersizse hiçbirini yazma
+        
         const bulunmayan = empIds.filter(id => !calisanlar.some(e => e.emp_id === id));
         if (bulunmayan.length) {
             return res.status(400).json({
