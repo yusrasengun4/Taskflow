@@ -38,6 +38,31 @@ router.get('/', (req, res) => {
     }
 });
 
+// GET /assignment/:id - ID ile getir
+router.get('/:id', (req, res) => {
+    try {
+        const id = Number(req.params.id);
+        if (!Number.isInteger(id) || id < 1) {
+            return res.status(400).json({ success: false, message: 'id must be a positive integer' });
+        }
+
+        const atama = oku(atamaDosyasi).find(a => a.assignment_id === id);
+        if (!atama) {
+            return res.status(404).json({ success: false, message: 'Assignment not found' });
+        }
+
+       
+        const gorev = oku(gorevDosyasi).find(t => t.task_id === atama.task_id) || null;
+        const calisan = oku(calisanDosyasi).find(e => e.emp_id === atama.emp_id) || null;
+
+        res.json({
+            success: true,
+            data: { ...atama, task: gorev, employee: calisan }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error occurred while fetching assignment' });
+    }
+});
 // POST /assignment - Göreve bir veya birden fazla çalışan ata
 
 router.post('/',  (req, res) => {
@@ -114,6 +139,75 @@ router.delete('/:id', (req, res) => {
         res.json({ success: true, message: 'Assignment removed' });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Error occurred while removing assignment' });
+    }
+});
+// PUT /assignment/:id - Atamayı güncelle
+
+router.put('/:id', (req, res) => {
+    try {
+        const id = Number(req.params.id);
+        if (!Number.isInteger(id) || id < 1) {
+            return res.status(400).json({ success: false, message: 'id must be a positive integer' });
+        }
+
+        const { task_id, emp_id, assigned_date } = req.body;
+
+        if (task_id === undefined && emp_id === undefined && assigned_date === undefined) {
+            return res.status(400).json({
+                success: false,
+                message: 'At least one of task_id, emp_id, assigned_date is required'
+            });
+        }
+
+        // Gönderilen alanların biçimini kontrol et
+        if (task_id !== undefined && !Number.isInteger(Number(task_id))) {
+            return res.status(400).json({ success: false, message: 'task_id must be a number' });
+        }
+        if (emp_id !== undefined && !Number.isInteger(Number(emp_id))) {
+            return res.status(400).json({ success: false, message: 'emp_id must be a number' });
+        }
+        if (assigned_date !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(assigned_date)) {
+            return res.status(400).json({ success: false, message: 'assigned_date must be in YYYY-MM-DD format' });
+        }
+
+        const atamalar = oku(atamaDosyasi);
+        const mevcut = atamalar.find(a => a.assignment_id === id);
+        if (!mevcut) {
+            return res.status(404).json({ success: false, message: 'Assignment not found' });
+        }
+
+        const yeniTaskId = task_id !== undefined ? Number(task_id) : mevcut.task_id;
+        const yeniEmpId = emp_id !== undefined ? Number(emp_id) : mevcut.emp_id;
+
+        // Görev ve çalışan gerçekten var mı
+        if (!oku(gorevDosyasi).some(t => t.task_id === yeniTaskId)) {
+            return res.status(404).json({ success: false, message: 'Task not found' });
+        }
+        if (!oku(calisanDosyasi).some(e => e.emp_id === yeniEmpId)) {
+            return res.status(404).json({ success: false, message: 'Employee not found' });
+        }
+
+        // Aynı görev + çalışan çifti başka bir kayıtta var mı
+        const cakisma = atamalar.some(a =>
+            a.assignment_id !== id &&
+            a.task_id === yeniTaskId &&
+            a.emp_id === yeniEmpId
+        );
+        if (cakisma) {
+            return res.status(409).json({
+                success: false,
+                message: 'This employee is already assigned to this task'
+            });
+        }
+
+        mevcut.task_id = yeniTaskId;
+        mevcut.emp_id = yeniEmpId;
+        if (assigned_date !== undefined) mevcut.assigned_date = assigned_date;
+
+        yaz(atamaDosyasi, atamalar);
+        res.json({ success: true, message: 'Assignment updated successfully', data: mevcut });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error occurred while updating assignment' });
     }
 });
 
