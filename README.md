@@ -45,13 +45,13 @@ http://localhost:3000
 ##Klasör Yapısı
 
 ```
-├── data/          # JSON veri dosyaları
-├── middleware/    # logger,hata yakalama
-├── routes/        # task, project, employee, assignment
-├── utils/         # dosya okuma/yazma yardımcıları
-├── logs/          # istek logları (git'e eklenmez)
-├── app.js
-└── server.js
+   ├── data/   #JSON veri dosyaları
+   ├── middleware/  #Logger,hata yönetimi
+   ├── routes/      #Task,project,employye,assignment endpointleri
+   ├── utils/       #Dosya okuma ve yazma yardımcıları
+   ├── logs/        #HTTP istek kayıtları
+   └── src/         #Express uygulaması ve sunucunun başlatılması
+      
 ```
 ##Test Ekranı Örneği
 <img width="1846" height="742" alt="Ekran görüntüsü 2026-11-07 165417" src="https://github.com/user-attachments/assets/b029a14b-5b42-4825-b146-ae80fd9cdbd7" />
