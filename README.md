@@ -1,0 +1,61 @@
+# Görev Yönetim Sistemi
+
+Node.js ve Express.js ile geliştirilmiş, proje ve görev takibi yapan REST API.
+
+
+##Kullanılan Teknolojiler
+
+- Node.js
+- Express.js
+- JSON dosya tabanlı veri saklama
+- Postman (test)
+
+##Kurulum ve Çalıştırma
+
+1. Projeyi İndirme
+
+Projeyi GitHub üzerinden klonlayın:
+
+git clone <repo-adresi>
+
+Proje klasörüne gidin:
+
+cd <proje-klasoru>
+
+2. Bağımlılıkların Kurulması
+
+Gerekli paketleri yükleyin:
+
+npm install
+
+3. Sunucunun Başlatılması
+
+src klasörüne geçin:
+
+cd src
+
+Sunucuyu geliştirme modunda başlatın:
+
+node --watch server.js
+
+Sunucu varsayılan olarak aşağıdaki adreste çalışır:
+
+http://localhost:3000
+
+##Klasör Yapısı
+
+```
+   ├── data/   #JSON veri dosyaları
+   ├── middleware/  #Logger,hata yönetimi
+   ├── routes/      #Task,project,employye,assignment endpointleri
+   ├── utils/       #Dosya okuma ve yazma yardımcıları
+   ├── logs/        #HTTP istek kayıtları
+   └── src/         #Express uygulaması ve sunucunun başlatılması
+      
+```
+##Test Ekranı Örneği
+<img width="1846" height="742" alt="Ekran görüntüsü 2026-11-07 165417" src="https://github.com/user-attachments/assets/b029a14b-5b42-4825-b146-ae80fd9cdbd7" />
+
+## Geliştirici
+
+Yüsra Şengün
