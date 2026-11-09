@@ -3,7 +3,7 @@
 Node.js ve Express.js ile geliştirilmiş, proje ve görev takibi yapan REST API.
 
 
-##Kullanılan Teknolijiler
+##Kullanılan Teknolojiler
 
 - Node.js
 - Express.js
