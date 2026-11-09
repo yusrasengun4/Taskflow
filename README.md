@@ -53,6 +53,8 @@ http://localhost:3000
 ├── app.js
 └── server.js
 ```
+##Test Ekranı Örneği
+<img width="1846" height="742" alt="Ekran görüntüsü 2026-11-07 165417" src="https://github.com/user-attachments/assets/b029a14b-5b42-4825-b146-ae80fd9cdbd7" />
 
 ## Geliştirici
 
