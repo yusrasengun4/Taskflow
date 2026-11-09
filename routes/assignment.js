@@ -120,7 +120,7 @@ router.post('/',  (req, res) => {
             zaten_atanmis: zatenAtanmis
         });
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Error occurred while creating assignment' });
+        next(error);
     }
 });
 
@@ -138,7 +138,7 @@ router.delete('/:id', (req, res) => {
         yaz(atamaDosyasi, kalanlar);
         res.json({ success: true, message: 'Assignment removed' });
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Error occurred while removing assignment' });
+        next(error);
     }
 });
 // PUT /assignment/:id - Atamayı güncelle
@@ -207,7 +207,8 @@ router.put('/:id', (req, res) => {
         yaz(atamaDosyasi, atamalar);
         res.json({ success: true, message: 'Assignment updated successfully', data: mevcut });
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Error occurred while updating assignment' });
+        //res.status(500).json({ success: false, message: 'Error occurred while updating assignment' });
+        next(error); // Hata yönetimi middleware'ine yönlendir
     }
 });
 

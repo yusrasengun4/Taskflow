@@ -16,7 +16,8 @@ router.get('/', (req, res) => {
         const tasks = oku(gorevDosyasi);
         res.json({ success: true, adet: tasks.length, data: tasks });
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Error occurred while fetching tasks' });
+        //res.status(500).json({ success: false, message: 'Error occurred while fetching tasks' });
+        next(error);
     }
 });
 
@@ -37,7 +38,8 @@ router.get('/:id', (req, res) => {
         }
         res.json({ success: true, data: task });
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Error occurred while fetching task' });
+       // res.status(500).json({ success: false, message: 'Error occurred while fetching task' });
+        next(error);
     }
 });
 
@@ -89,7 +91,8 @@ router.post('/', (req, res) => {
         yaz(gorevDosyasi, tasks);
         res.status(201).json({ success: true, message: 'Task added successfully', data: yeniTask });
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Error occurred while adding task' });
+        //res.status(500).json({ success: false, message: 'Error occurred while adding task' });
+        next(error);
     }
 });
 
@@ -128,7 +131,8 @@ router.put('/:id', (req, res) => {
         yaz(gorevDosyasi, tasks);
         res.json({ success: true, message: 'Task updated successfully', data: tasks[index] });
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Error occurred while updating task' });
+        //res.status(500).json({ success: false, message: 'Error occurred while updating task' });
+        next(error);
     }
 });
 
@@ -152,7 +156,8 @@ router.delete('/:id', (req, res) => {
         yaz(gorevDosyasi, kalanlar);
         res.json({ success: true, message: 'Task deleted successfully' });
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Error occurred while deleting task' });
+        //res.status(500).json({ success: false, message: 'Error occurred while deleting task' });
+        next(error);
     }
 });
 

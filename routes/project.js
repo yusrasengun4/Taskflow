@@ -270,10 +270,7 @@ router.put('/:id', (req, res) => {
             data: projeler[index]
         });
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Error occurred while updating project'
-        });
+        next(error);
     }
 });
 

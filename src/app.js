@@ -20,8 +20,16 @@ app.use('/project', projectRoutes);
 app.use('/task', taskRoutes);
 app.use('/assignment', assignmentRoutes);
 
+app.get('/', (req, res) => {
+    res.json({
+        success: true,
+        message: 'Görev Yönetim Sistemi API is running'
+    });
+});
 // Tanımlanmamış endpoint'leri yakala
 app.use(notFound);
+
+
 
 // Hataları merkezi olarak yönet
 app.use(errorHandler);
